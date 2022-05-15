@@ -4,23 +4,29 @@ include 'example.php';
 
 $chosenOption = "no Answer";
 
-printf("\n\n\n\nEnter your ID: ");
+printf("\nEnter your ID: ");
 $handle = fopen ("php://stdin","r");
 $line = fgets($handle);
 
-printf("\n\nStudent ID: %s", $line);
+printf("\nStudent ID: %s", $line);
 
 while($noOfQuesDone !== $noOfRows){
     getQues();
     showQues($ques, $optA, $optB, $optC, $optD, $answ);
 }
 
+printf("Quiz Ended...");
+
 function showQues($ques, $optA, $optB, $optC, $optD, $answ){
+
+    //To clear screen---cannot use "cls" idk why
+    echo "\e[H\e[J";
+
     global $chosenOption;
     global $noOfQuesDone;
     $noOfQuesDone++;
 
-    printf("\n\n%s", $ques);
+    printf("%s", $ques);
 
     printf("\nA) %s", $optA);printf("\tB) %s", $optB);
     printf("\nC) %s", $optC);printf("\tD) %s", $optD);
@@ -62,10 +68,14 @@ function showQues($ques, $optA, $optB, $optC, $optD, $answ){
     }
 
     //To pause for 2 seconds
-    sleep(2);
+    sleep(1);
+    printf("\n3.");
+    sleep(1);
+    printf("\t2.");
+    sleep(1);
+    printf("\t1.");
+    sleep(1);
 
-    //To clear screen---cannot use "cls" idk why
-    echo "\e[H\e[J";
 }
 
 

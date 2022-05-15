@@ -48,7 +48,6 @@
         global $answ;
 
         $currentID = getRandID();
-        echo "\nCurrent ID = " . $currentID;
     
         $ques = someFk("question", $currentID, $con);
         $optA = someFk("A", $currentID, $con);
@@ -58,23 +57,19 @@
         $answ = someFk("answer", $currentID, $con);
     }
 
-    // echo "Question: " . $ques . "\n\n";
-    // echo "A " . $optA . "\t";
-    // echo "B " . $optB . "\n";
-    // echo "C " . $optC . "\t";
-    // echo "D " . $optD . "\n";
+    function debugVar($someStr, $var){
+        echo $someStr . $var;
+    }
 
     function getRandID(){
-        global $query;
         global $allUsedID;
         global $all_ID;
         global $maxid;
+        global $noOfRows;
         $newID = 0;
-        if($noOfRows = mysqli_num_rows($query)){
-            echo "\nNo. Of Rows: " . $noOfRows;
+        if($noOfRows){
             while(true){
                 $newID = rand(1, $maxid);
-                echo "\nNew ID = " . $newID;
                 if(!in_array($newID, $allUsedID) && in_array($newID, $all_ID)){
                     array_push($allUsedID, $newID);
                     return $newID;
@@ -98,6 +93,5 @@
             return $row[$col_name];
         }
     }
-
 
 ?>
