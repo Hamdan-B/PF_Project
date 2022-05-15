@@ -27,7 +27,7 @@
 
     if($query){
         echo "Content Added";
-        header("location:index.php?reg=1");
+        header("location:index.php");
     }else{
         echo "there was an error";
     }

@@ -7,6 +7,7 @@
 
     $currentID = 1;
     $allUsedID = array();
+    $noOfQuesDone = 0;
 
     //Creating connection
     $con = mysqli_connect($servername, $username, $password, $dbname);
@@ -37,15 +38,25 @@
         $all_ID[] = $row['id'];
     }
 
-    $currentID = getRandID();
-    echo "\nCurrent ID = " . $currentID;
+    function getQues(){
+        global $con;
+        global $ques;
+        global $optA;
+        global $optB;
+        global $optC;
+        global $optD;
+        global $answ;
 
-    $ques = someFk("question", $currentID, $con);
-    $optA = someFk("A", $currentID, $con);
-    $optB = someFk("B", $currentID, $con);
-    $optC = someFk("C", $currentID, $con);
-    $optD = someFk("D", $currentID, $con);
-    $answ = someFk("answer", $currentID, $con);
+        $currentID = getRandID();
+        echo "\nCurrent ID = " . $currentID;
+    
+        $ques = someFk("question", $currentID, $con);
+        $optA = someFk("A", $currentID, $con);
+        $optB = someFk("B", $currentID, $con);
+        $optC = someFk("C", $currentID, $con);
+        $optD = someFk("D", $currentID, $con);
+        $answ = someFk("answer", $currentID, $con);
+    }
 
     // echo "Question: " . $ques . "\n\n";
     // echo "A " . $optA . "\t";
@@ -88,6 +99,5 @@
         }
     }
 
-    $con->close();
 
 ?>
