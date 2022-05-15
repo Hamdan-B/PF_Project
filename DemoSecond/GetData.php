@@ -1,0 +1,87 @@
+<?php
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "Demo";
+
+    //Creating connection
+    $con = mysqli_connect($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($con->connect_error) {
+        die("Connection failed: " . $con->connect_error);
+    }
+    echo "Connected successfully" . "\n";
+
+    $sql = "SELECT * FROM test1";
+    $query = mysqli_query($con, $sql);
+    $noOfRows = mysqli_num_rows($query);
+
+    $currentID = 1;
+    $allUsedID = array();
+    $all_DB_ID = array();
+
+    $maxid = 0;
+    $maxID_Query = mysqli_query($con, "SELECT MAX(id) FROM test1");
+    $maxID_result = mysqli_fetch_row($maxID_Query);
+    $maxid = $maxID_result[0];
+
+
+    $result = mysqli_query($con, "SELECT id FROM test1");
+
+    while($row = mysqli_fetch_array($result))
+    {
+        $all_DB_ID[] = $row['id'];
+    }
+
+    $currentID = getRandID();
+    echo "\nCurrent ID = " . $currentID;
+
+    $ques = someFk("question", $currentID, $con);
+    $optA = someFk("A", $currentID, $con);
+    $optB = someFk("B", $currentID, $con);
+    $optC = someFk("C", $currentID, $con);
+    $optD = someFk("D", $currentID, $con);
+    $answ = someFk("answer", $currentID, $con);
+
+    // echo "Question: " . $ques . "\n\n";
+    // echo "A " . $optA . "\t";
+    // echo "B " . $optB . "\n";
+    // echo "C " . $optC . "\t";
+    // echo "D " . $optD . "\n";
+
+    function getRandID(){
+        global $query;
+        global $allUsedID;
+        global $all_DB_ID;
+        global $maxid;
+        $newID = 0;
+        if($noOfRows = mysqli_num_rows($query)){
+            echo "\nNo. Of Rows: " . $noOfRows;
+            while(true){
+                $newID = rand(1, $maxid);
+                echo "\nNew ID = " . $newID;
+                if(!in_array($newID, $allUsedID) && in_array($newID, $all_DB_ID)){
+                    array_push($allUsedID, $newID);
+                    return $newID;
+                    break;
+                }else{
+                    continue;
+                }
+            }
+        }else{
+            echo "Data not found";
+        }
+    }
+    function someFk($col_name, $id, $con){
+        $sql__ = "SELECT $col_name FROM test1 WHERE id = $id";
+        $query__ = mysqli_query($con, $sql__);
+        while($row = mysqli_fetch_assoc($query__)) {
+            return $row[$col_name];
+        }
+    }
+
+    $con->close();
+
+?>
