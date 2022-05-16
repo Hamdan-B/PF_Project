@@ -1,0 +1,14 @@
+/////////// CLIENT SIDE /////////////////
+Q) Will the student get a random ID or will he/she give his own specific ID?
+
+Q) Should there be a student data table?
+
+Q) Should the user get the answer of every question when he enter his option or should he only get the total score
+at the end of the quiz?
+
+
+
+
+
+/////////// ADMINISTRATIVE SIDE /////////////////
+Q)Will there be only one Admin or multiple Admins who can log in and access the data?
