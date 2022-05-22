@@ -1,6 +1,12 @@
 <?php
  include 'STD_Data.php';
  include 'Question_Data.php';
+
+ session_start();
+ if(!isset($_SESSION['userlogin'])){
+     header('location:../Login/login.php');
+ }
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +33,7 @@
             <div class="justify-content-end">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <button class="btn btn-light">Sign Out</button>
+                    <button class="btn btn-light"><a href="../Login/signout.php" class="nav-link">SignOut</a></button>
                     </li>
                 </ul>
             </div>

@@ -1,18 +1,6 @@
 <?php
-        //MySql Server Details
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "demo";
-
-    //Creating connection
-    $con = mysqli_connect($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($con->connect_error) {
-        die("Connection failed: " . $con->connect_error);
-    }
-    echo "Connected successfully";
+    //Connection
+    include_once 'connection.php';
 
     $sql = "SELECT * FROM `admin`";
     $query = mysqli_query($con, $sql);
@@ -23,7 +11,7 @@
     if($noOfRows === 0){
         header("location:Login/signup.php");
     }else{
-        header("location:Login/index.php");
+        header("location:Login/login.php");
     }
 
     mysqli_close($con);

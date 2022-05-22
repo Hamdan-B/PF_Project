@@ -1,16 +1,6 @@
 <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "demo";
-
-        //Creating connection
-        $con = mysqli_connect($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($con->connect_error) {
-            die("Connection failed: " . $con->connect_error);
-        }
+        //Connection
+        include_once '../connection.php';
 
         $questionTable = mysqli_query($con, "SELECT * FROM questions");
         $totalQuestions = mysqli_num_rows($questionTable);
