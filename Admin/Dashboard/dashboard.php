@@ -1,5 +1,6 @@
 <?php
  include 'STD_Data.php';
+ include 'Question_Data.php';
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +73,8 @@
                     <tbody>
                         <!--Enter data from the database-->
                         <?php
-                        for($i = 0; $i < $maxSTDid; $i++){
+                        //1000 is the offset, because IDs are starting from 1000
+                        for($i = 0; $i < $maxSTDid - 1000; $i++){
                             echo "<tr>";
                             echo "<td>" . STD_Details($i, "id") . "</td>";
                             echo "<td>" . STD_Details($i, "name") . "</td>";
@@ -99,13 +101,33 @@
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         Total Questions
-                        <span class="badge bg-primary rounded-pill">25</span>
+                        <span class="badge bg-primary rounded-pill"><?php echo $totalQuestions; ?></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-center align-items-center">
-                        <button class="btn btn-primary">Add Question</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddQues">Add Question</button>
                     </li>
                 </ul>
                 <br>
+            </div>
+        </div>
+        <div class="modal fade" id="AddQues">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modal Heading</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        Modal body..
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
             </div>
         </div>
         <div class="card-footer text-center">
@@ -116,37 +138,70 @@
                     <th>Delete</th>
                 </thead>
                 <tbody>
-                        <tr>
-                            <td>
-                                <span><!--Get questio from Database--></span>
-                                <br>
-                                <div id="QuestionDetails" class="collapse">
-                                    <table class="table table-stripped">
-                                        <thead>
-                                            <th>Option A</th>
-                                            <th>Option B</th>
-                                            <th>Option C</th>
-                                            <th>Option D</th>
-                                            <th>Answer</th>
-                                        </thead>
-                                        <tbody>
-                                            <!--Get question details from database-->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#QuestionDetails">Details</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                    <?php
+                    for($i = 0; $i < count($all_ques_ID); $i++){
+                        //This is the table row
+                        echo '<tr>';
+                            echo '<td>';
+                                echo '<span>' . Ques_Details($i, "question") . '</span>';
+                            echo '</td>';
+                            echo '<td>';
+                                echo '<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal'.$i.'">Details</button>';
+                            echo '</td>';
+                            echo '<td>';
+                                echo '<form action="deletePage.php" method="post">';
+                                    echo '<input type="hidden" name="I_ID" value="'.Ques_Details($i, "id").'">';
+                                    echo '<input type="submit" value="Delete" class="btn btn-danger">';
+                                echo '</form>';
+                            echo '</td>';
+                        echo '</tr>';
+
+                        //This is the Modal of details that will popUp
+                        //myModal$i --- myModal0 then myModal1......
+                        echo '<div class="modal fade" id="myModal'.$i.'">';
+                            echo '<div class="modal-dialog modal-xl">';
+                                echo '<div class="modal-content">';
+
+                                    //Modal Header
+                                    echo '<div class="modal-header">';
+                                        echo '<h4 class="modal-title">Question details</h4>';
+                                        echo '<button type="button" class="btn-close" data-bs-dismiss="modal"></button>';
+                                    echo '</div>';
+
+                                    //Modal Body
+                                    echo '<div class="modal-body">';
+                                        //This is the card which contains all the question details
+                                        echo '<div class="card">';
+                                            //Card Header (Question here)
+                                            echo '<div class="card-header">' . Ques_Details($i, "question") . '</div>';
+                                            //Card Body (Options here)
+                                            echo '<div class="card-body">';
+                                                echo '<ul class="list-group">';
+                                                    echo '<li class="list-group-item">A) ' . Ques_Details($i, "A") . '</li>';
+                                                    echo '<li class="list-group-item">B) ' . Ques_Details($i, "B") . '</li>';
+                                                    echo '<li class="list-group-item">C) ' . Ques_Details($i, "C") . '</li>';
+                                                    echo '<li class="list-group-item">D) ' . Ques_Details($i, "D") . '</li>';
+                                                echo '</ul>';
+                                            echo '</div>';
+                                            //Card Footer (Answer here)
+                                            echo '<div class="card-footer">Answer: ' . Ques_Details($i, "answer") . '</div>';
+                                        echo '</div>';
+                                    echo '</div>';
+
+                                    //Modal Footer
+                                    echo '<div class="modal-footer">';
+                                        echo '<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>';
+                                    echo '</div>';
+
+                                echo '</div>';
+                            echo '</div>';
+                        echo '</div>';
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>
     </div>
-
 
 </body>
 </html>
