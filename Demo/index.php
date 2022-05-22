@@ -18,14 +18,19 @@
 
 </head>
 <body>
-    <div class="container-fluid bg-dark">
-        <nav class="navbar text-light">
-          <p class="navbar-brand m-0">Admin</p>
-          <ul class="text-right">
-
-          </ul>
+        <nav class="navbar text-light navbar-expand-sm bg-dark navbar-dark">
+          <div class="container-fluid">
+            <p class="navbar-brand m-0">Admin</p>
+            <ul class="navbar-nav text-right nav justify-content-end">
+              <li class="nav-item">
+                <button class="btn btn-dark">Dashboard</button>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-dark"><small>Sign Out</small></button>
+              </li>
+            </ul>
+          </div>
         </nav>
-    </div>
     <br>
     <div class="container text-center text-light">
       <h1 class="display-5">Add Question</h1>
@@ -68,38 +73,5 @@
         </div>
       </div>
     </form>
-
-    <!-- <form action="functions.php" method="post" class="row g-3 needs-validation text-light" novalidate>
-      <div class="col-md-4">
-        <label for="validationCustom01" class="form-label">Question</label>
-        <input type="text" name="question" class="form-control bg-dark border-0" id="validationCustom01" placeholder="Question" required>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom02" class="form-label">Option A</label>
-        <input type="text" name="optA" class="form-control bg-dark border-0" id="validationCustom02" placeholder="Option A" required>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom03" class="form-label">Option B</label>
-        <input type="text" name="optB" class="form-control bg-dark border-0" id="validationCustom03" placeholder="Option B" required>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom04" class="form-label">Option C</label>
-        <input type="text" name="optC" class="form-control bg-dark border-0" id="validationCustom04" placeholder="Option C" required>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom05" class="form-label">Option D</label>
-        <input type="text" name="optD" class="form-control bg-dark border-0" id="validationCustom05" placeholder="Option D" required>
-      </div>
-      <div class="col-md-4">
-        <label for="validationCustom06" class="form-label">Answer</label>
-        <input type="text" name="answer" class="form-control bg-dark border-0" id="validationCustom06" placeholder="Answer" required>
-      </div>
-      <div class="col-12 mt-2">
-        <button class="btn btn-primary" type="submit">Submit</button>
-      </div>
-    </form> -->
-
-    <?php
-    ?>
 </body>
 </html>
