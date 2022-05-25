@@ -116,17 +116,53 @@
                 <br>
             </div>
         </div>
+        <!--Add Question Modal-->
         <div class="modal fade" id="AddQues">
             <div class="modal-dialog modal-fullscreen">
                 <div class="modal-content">
-
                     <div class="modal-header">
-                        <h4 class="modal-title">Modal Heading</h4>
+                        <h4 class="modal-title">Add Question</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
                     <div class="modal-body">
-                        Modal body..
+                        <form action="AddQues.php" method="post" class="needs-validation text-light" novalidate>
+                            <div class="container">
+                                <input type="text" name="question" id="ques" class="form-control bg-light" placeholder="Enter Question">
+                            </div>
+                            <br><br>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="text" name="optA" id="optA" class="form-control bg-light" placeholder="Option A">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="optB" id="optB" class="form-control bg-light" placeholder="Option B">
+                                    </div>
+                                </div>
+                            <br>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="text" name="optC" id="optC" class="form-control bg-light" placeholder="Option C">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" name="optD" id="optD" class="form-control bg-light" placeholder="Option D">
+                                    </div>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="container d-flex justify-content-center">
+                                <div class="col-6">
+                                    <input type="text" name="answer" id="answ" class="form-control bg-light" placeholder="Enter Correct Answer">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="container d-flex justify-content-center">
+                                <div class="col-6 d-flex justify-content-center">
+                                    <button class="btn btn-primary" type="submit">Add</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                     <div class="modal-footer">

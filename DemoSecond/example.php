@@ -1,24 +1,12 @@
 <?php
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "Demo";
+    include_once '../Admin/connection.php';
 
     $currentID = 1;
     $allUsedID = array();
     $noOfQuesDone = 0;
 
-    //Creating connection
-    $con = mysqli_connect($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($con->connect_error) {
-        die("Connection failed: " . $con->connect_error);
-    }
-    echo "Connected successfully" . "\n";
-
-    $sql = "SELECT * FROM test1";
+    $sql = "SELECT * FROM questions";
     $query = mysqli_query($con, $sql);
 
     //Total number of rows in the Table
@@ -26,13 +14,13 @@
 
     //Getting max ID in the table
     $maxid = 0;
-    $maxID_Query = mysqli_query($con, "SELECT MAX(id) FROM test1");
+    $maxID_Query = mysqli_query($con, "SELECT MAX(id) FROM questions");
     $maxID_result = mysqli_fetch_row($maxID_Query);
     $maxid = $maxID_result[0];
 
     //Getting all the IDs in the database and storing them in $all_DB_ID array
     $all_ID = array();
-    $result = mysqli_query($con, "SELECT id FROM test1");
+    $result = mysqli_query($con, "SELECT id FROM questions");
     while($row = mysqli_fetch_array($result))
     {
         $all_ID[] = $row['id'];
@@ -87,7 +75,7 @@
         $currentID = getRandID();
     }
     function someFk($col_name, $id, $con){
-        $sql__ = "SELECT $col_name FROM test1 WHERE id = $id";
+        $sql__ = "SELECT $col_name FROM questions WHERE id = $id";
         $query__ = mysqli_query($con, $sql__);
         while($row = mysqli_fetch_assoc($query__)) {
             return $row[$col_name];

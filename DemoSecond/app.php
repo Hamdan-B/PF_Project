@@ -4,11 +4,11 @@ include 'example.php';
 
 $chosenOption = "no Answer";
 
-printf("\nEnter your ID: ");
+printf("\nEnter your name: ");
 $handle = fopen ("php://stdin","r");
-$line = fgets($handle);
-
-printf("\nStudent ID: %s", $line);
+$std_name = fgets($handle);
+$std_score = 0;
+$std_status = "Failed";
 
 while($noOfQuesDone !== $noOfRows){
     getQues();
