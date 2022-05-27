@@ -2,12 +2,15 @@
     include_once '../connection.php';
 
         //taking user Input
-    $ques = $_POST['question'];
-    $optA = $_POST['optA'];
-    $optB = $_POST['optB'];
-    $optC = $_POST['optC'];
-    $optD = $_POST['optD'];
-    $answ = $_POST['answer'];
+    $ques = addslashes($_POST['question']);
+    $optA = addslashes($_POST['optA']);
+    $optB = addslashes($_POST['optB']);
+    $optC = addslashes($_POST['optC']);
+    $optD = addslashes($_POST['optD']);
+    $answ = addslashes($_POST['answer']);
+
+
+
      //sql to put value in the table
      $sql = "INSERT INTO questions
      VALUES (NULL, '$ques', '$optA', '$optB', '$optC', '$optD', '$answ')";

@@ -1,6 +1,7 @@
 <?php
  include 'STD_Data.php';
  include 'Question_Data.php';
+ include 'Marks_Data.php';
 
  session_start();
  if(!isset($_SESSION['userlogin'])){
@@ -24,6 +25,17 @@
         font-family: 'Montserrat', sans-serif;
       }
     </style>
+    <script>
+        function updateMarksPQvalue(val) {
+          document.getElementById('marksPQvalue').value=val; 
+        }
+        function updateMarksMaxvalue(val) {
+          document.getElementById('marksMaxvalue').value=val; 
+        }
+        function updateMarksPassvalue(val) {
+          document.getElementById('marksPassvalue').value=val; 
+        }
+    </script>
 
 </head>
 <body>
@@ -73,14 +85,14 @@
                     <thead>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Score(out of 50)</th>
+                        <th>Marks</th>
                         <th>Status</th>
                     </thead>
                     <tbody>
                         <!--Enter data from the database-->
                         <?php
                         //1000 is the offset, because IDs are starting from 1000
-                        for($i = 0; $i < $maxSTDid - 1000; $i++){
+                        for($i = 0; $i < count($all_std_ID); $i++){
                             echo "<tr>";
                             echo "<td>" . STD_Details($i, "id") . "</td>";
                             echo "<td>" . STD_Details($i, "name") . "</td>";
@@ -113,6 +125,35 @@
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddQues">Add Question</button>
                     </li>
                 </ul>
+                <br>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="container col-12 col-sm-12 col-md-6 col-xxl-4">
+                <form action="updateMarks.php" method="post">
+                    
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <label for="marksPQ" class="form-label">Marks (per question)</label>
+                            <input type="range" class="form-range" name="marksPQ" id="marksPQ" step="5" min="5" max="20" value="<?php echo Marks_Detail('marks_per_ques'); ?>" onchange="updateMarksPQvalue(this.value);">
+                            <input type="text" disabled class="form-control-plaintext form-control-lg border-0 text-center" name="marksPQvalue" id="marksPQvalue" value="<?php echo Marks_Detail('marks_per_ques'); ?>">
+                        </li>
+                        <li class="list-group-item">
+                            <label for="marksMax" class="form-label">Total Marks</label>
+                            <input type="range" class="form-range" name="marksMax" id="marksMax" step="10" min="10" max="100" value="<?php echo Marks_Detail('total_marks'); ?>" onchange="updateMarksMaxvalue(this.value);">
+                            <input type="text" disabled class="form-control-plaintext form-control-lg border-0 text-center" name="marksMaxvalue" id="marksMaxvalue" value="<?php echo Marks_Detail('total_marks'); ?>">
+                        </li>
+                        <li class="list-group-item">
+                            <label for="marksPass" class="form-label">Passing Marks</label>
+                            <input type="range" class="form-range" name="marksPass" id="marksPass" step="10" min="10" max="100" value="<?php echo Marks_Detail('passing_marks'); ?>" onchange="updateMarksPassvalue(this.value);">
+                            <input type="text" disabled class="form-control-plaintext form-control-lg border-0 text-center" name="marksPassvalue" id="marksPassvalue" value="<?php echo Marks_Detail('passing_marks'); ?>">
+                        </li>
+                        <li class="list-group-item d-flex justify-content-center">
+                            <input type="submit" value="Update" class="btn btn-primary">
+                        </li>
+                    </ul>
+                </form>
+
                 <br>
             </div>
         </div>

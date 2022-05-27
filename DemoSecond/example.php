@@ -26,14 +26,19 @@
         $all_ID[] = $row['id'];
     }
 
-    function getQues(){
+    //Marks
+    function getMarks($colName){
         global $con;
-        global $ques;
-        global $optA;
-        global $optB;
-        global $optC;
-        global $optD;
-        global $answ;
+        $marks_query = mysqli_query($con, "SELECT $colName FROM marks");
+        $marks_result = mysqli_fetch_row($marks_query);
+        return $marks_result[0];
+    }
+    $totalMarks = getMarks("total_marks");
+    $marksPerQues = getMarks("marks_per_ques");
+    $passingMarks = getMarks("passing_marks");
+
+    function getQues(){
+        global $con, $ques, $optA, $optB, $optC, $optD, $answ;
 
         $currentID = getRandID();
     
@@ -50,10 +55,7 @@
     }
 
     function getRandID(){
-        global $allUsedID;
-        global $all_ID;
-        global $maxid;
-        global $noOfRows;
+        global $allUsedID, $all_ID, $maxid, $noOfRows;
         $newID = 0;
         if($noOfRows){
             while(true){
@@ -70,15 +72,31 @@
             echo "Data not found";
         }
     }
-    function changeID(){
-        global $currentID;
-        $currentID = getRandID();
-    }
+    // function changeID(){
+    //     global $currentID;
+    //     $currentID = getRandID();
+    // }
     function someFk($col_name, $id, $con){
         $sql__ = "SELECT $col_name FROM questions WHERE id = $id";
         $query__ = mysqli_query($con, $sql__);
         while($row = mysqli_fetch_assoc($query__)) {
             return $row[$col_name];
+        }
+    }
+
+    function addStdDataToDB($StdName, $StdScore){
+        global $con, $passingMarks;
+        $StdStatus = "Failed";
+        if($StdScore>=$passingMarks) $StdStatus = "Passed";
+
+         //sql to put value in the table
+        $sql = "INSERT INTO students
+        VALUES (NULL, '$StdName', $StdScore, '$StdStatus')";
+ 
+        $query = mysqli_query($con, $sql);
+ 
+        if(!$query){
+            echo "there was an error";
         }
     }
 

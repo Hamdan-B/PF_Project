@@ -28,8 +28,7 @@
             return $result['total'];
         }
         function STD_Details($id_no, $col_name){
-            global $con;
-            global $all_std_ID;
+            global $con, $all_std_ID;
             $sql__ = "SELECT $col_name FROM students WHERE id = $all_std_ID[$id_no]";
             $query__ = mysqli_query($con, $sql__);
             while($row = mysqli_fetch_assoc($query__)) {

@@ -16,8 +16,7 @@
         }
 
         function Ques_Details($id_no, $col_name){
-            global $con;
-            global $all_ques_ID;
+            global $con, $all_ques_ID;
             $sql__ = "SELECT $col_name FROM questions WHERE id = $all_ques_ID[$id_no]";
             $query__ = mysqli_query($con, $sql__);
             while($row = mysqli_fetch_assoc($query__)) {

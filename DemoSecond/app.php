@@ -8,22 +8,27 @@ printf("\nEnter your name: ");
 $handle = fopen ("php://stdin","r");
 $std_name = fgets($handle);
 $std_score = 0;
-$std_status = "Failed";
 
 while($noOfQuesDone !== $noOfRows){
     getQues();
     showQues($ques, $optA, $optB, $optC, $optD, $answ);
 }
 
-printf("Quiz Ended...");
+//To clear screen---cannot use "cls" idk why
+echo "\e[H\e[J";
+printf("\nQuiz Complete");
+printf("\nName: %s", $std_name);
+printf("Marks: %d / %d", $std_score, $totalMarks);
+
+addStdDataToDB($std_name, $std_score);
+
 
 function showQues($ques, $optA, $optB, $optC, $optD, $answ){
 
     //To clear screen---cannot use "cls" idk why
     echo "\e[H\e[J";
 
-    global $chosenOption;
-    global $noOfQuesDone;
+    global $chosenOption, $noOfQuesDone, $marksPerQues, $std_score;
     $noOfQuesDone++;
 
     printf("%s", $ques);
@@ -62,9 +67,7 @@ function showQues($ques, $optA, $optB, $optC, $optD, $answ){
     printf("\n\nCorrect answer: %s", $answ);
 
     if($chosenOption == $answ){
-        printf("\n\n\tCORRECT!");
-    }else{
-        printf("\n\n\tWRONG!");
+        $std_score += $marksPerQues;
     }
 
     //To pause for 2 seconds
