@@ -1,10 +1,10 @@
 <?php
 
 include 'example.php';
-
+echo "\e[1;36m";
 $chosenOption = "no Answer";
 
-printf("\nEnter your name: ");
+printf("Enter your name: ");
 $handle = fopen ("php://stdin","r");
 $std_name = fgets($handle);
 $std_score = 0;
@@ -17,10 +17,9 @@ while($noOfQuesDone !== $noOfRows){
 //To clear screen---cannot use "cls" idk why
 echo "\e[H\e[J";
 printf("\nQuiz Complete");
+addStdDataToDB($std_name, $std_score);
 printf("\nName: %s", $std_name);
 printf("Marks: %d / %d", $std_score, $totalMarks);
-
-addStdDataToDB($std_name, $std_score);
 
 
 function showQues($ques, $optA, $optB, $optC, $optD, $answ){
@@ -43,7 +42,6 @@ function showQues($ques, $optA, $optB, $optC, $optD, $answ){
     switch(trim($answIn)){
         case "A":
         case "a":
-            printf("you chose option A");
             $chosenOption = $optA;
             break;
         case 'B':
@@ -62,10 +60,6 @@ function showQues($ques, $optA, $optB, $optC, $optD, $answ){
             $chosenOption = "Invalid Input.";
     }
 
-
-    printf("\n\nYour answer: %s", $chosenOption);
-    printf("\n\nCorrect answer: %s", $answ);
-
     if($chosenOption == $answ){
         $std_score += $marksPerQues;
     }
@@ -80,7 +74,5 @@ function showQues($ques, $optA, $optB, $optC, $optD, $answ){
     sleep(1);
 
 }
-
-
 
 ?>

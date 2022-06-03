@@ -1,6 +1,16 @@
 <?php
 
-    include_once '../Admin/connection.php';
+$servername = "192.168.1.103";
+$username = "std";
+$password = "std@123";
+$dbname = "Demo";
+
+//Creating connection
+$con = new mysqli($servername, $username, $password, $dbname);
+//Checking connection
+if($con->connect_error){
+    die("Connection failed: " . $con->connet_error);
+}
 
     $currentID = 1;
     $allUsedID = array();
@@ -82,6 +92,13 @@
         while($row = mysqli_fetch_assoc($query__)) {
             return $row[$col_name];
         }
+    }
+
+    function getID($name){
+        global $con;
+        $sql__ = "SELECT id FROM students WHERE 'name' = $name";
+        $query__ = mysqli_query($con, $sql__);
+        return $query__;
     }
 
     function addStdDataToDB($StdName, $StdScore){
